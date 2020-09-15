@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 @State(Scope.Thread)
 @BenchmarkMode(Mode.SingleShotTime)
-@OutputTimeUnit(TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class TestSearch {
     private static final String PATH_OF_FOLDER = "C:\\JAVA\\Search";
 
@@ -26,8 +26,8 @@ public class TestSearch {
         SearchUsingByteArray.startSearch(PATH_OF_FOLDER);
     }
 
-//    @Benchmark
-//    public void SearchUsingStringTest() {
-//        SearchUsingString.startSearch(PATH_OF_FOLDER);
-//    }
+    @Benchmark
+    public void SearchUsingStringTest() {
+        SearchUsingString.startSearch(PATH_OF_FOLDER);
+    }
 }

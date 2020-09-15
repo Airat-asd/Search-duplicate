@@ -1,0 +1,39 @@
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
+    id 'com.github.johnrengelman.shadow'
+}
+
+sourceCompatibility = JavaVersion.VERSION_13
+targetCompatibility = JavaVersion.VERSION_13
+
+dependencies {
+    implementation 'commons-codec:commons-codec'
+    testImplementation 'org.openjdk.jmh:jmh-core'
+    testAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.with {
+        encoding = 'UTF-8'
+    }
+}
+
+shadowJar {
+    archiveBaseName.set('Search_module')
+    archiveVersion.set('0.1')
+    archiveClassifier.set('')
+    manifest {
+        attributes 'Main-Class': 'ru.asd.SearchMain'
+    }
+}
+
+tasks.build.dependsOn tasks.shadowJar

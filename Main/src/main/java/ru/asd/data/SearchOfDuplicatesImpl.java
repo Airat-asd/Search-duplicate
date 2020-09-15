@@ -35,7 +35,6 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
                     if (entrySecond.getValue().equals(bufferValueMd5)) {
                         if (!entrySecond.getValue().equals("")) {
                             listOfDuplicateKey.add(entrySecond.getKey());
-                            System.out.println(counterFirst + "." + entryFirst.getKey());
                             entrySecond.setValue("");
                         }
                     }

@@ -9,4 +9,5 @@
 
 rootProject.name = 'Search-duplicate'
 include 'Main'
+include 'Search'
 

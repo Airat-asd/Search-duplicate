@@ -15,7 +15,9 @@ public class SearchUsingString {
         mapMd5AndFile = dataStorage.mapStringNotSorted(listOfFiles);
         SearchOfDuplicates getDuplicate = new SearchOfDuplicatesImpl();
         var duplicate = getDuplicate.getListOfDuplicatesFromString(mapMd5AndFile);
-        System.out.println("Duplicates " + duplicate.size() + ":");
-        System.out.println(duplicate);
+        System.out.println("Found " + duplicate.size() + " duplicates:");
+        for (int i = 0; i < duplicate.size(); i++) {
+            System.out.println(i+1 + ". " + duplicate.get(i));
+        }
     }
 }
