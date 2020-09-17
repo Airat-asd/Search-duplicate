@@ -4,15 +4,16 @@ import ru.asd.code.*;
 import ru.asd.file.*;
 
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DataStorageImpl implements DataStorage {
     @Override
-    public Map<Path, byte[]> mapByteNotSorted(ListOfFiles listOfFiles) {
+    public Map<Path, String> mapByteNotSorted(ListOfFiles listOfFiles) {
         ReadFile readFile = new ReadFileImpl();
         ConvertToMd5 convertToMd5 = new ConvertToMd5Impl();
-        Map<Path, byte[]> mapMd5 = new HashMap<>();
+        Map<Path, String> mapMd5 = new HashMap<>();
 
         for (Path file : listOfFiles.getListOfFiles()) {
             if (readFile.getReadFile(file) != null) {
@@ -39,7 +40,7 @@ public class DataStorageImpl implements DataStorage {
     }
 
     @Override
-    public Map<Path, byte[]> mapSorted(ListOfFiles listOfFiles) {
+    public Map<Path, String> mapSorted(ListOfFiles listOfFiles) {
         //        if (readFile.getReadFile(file) != null) {
 //            int summ = 0;
 //            var code = convertToMd5.md5ConvertToByte(readFile.getReadFile(file));

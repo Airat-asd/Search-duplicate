@@ -8,11 +8,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public interface DataStorage {
-    Map<Path, byte[]> mapByteNotSorted (ListOfFiles listOfFiles);
+    Map<Path, String> mapByteNotSorted (ListOfFiles listOfFiles);
 
     Map<Path, String> mapStringNotSorted (ListOfFiles listOfFiles);
 
-    Map<Path, byte[]> mapSorted (ListOfFiles listOfFiles);
+    Map<Path, String> mapSorted (ListOfFiles listOfFiles);
 
     Map<Path, String> mapStringSorted (ListOfFiles listOfFiles);
 

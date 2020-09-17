@@ -9,13 +9,14 @@ import java.util.Map;
 
 public class SearchMain {
     public static void main(String[] args) {
-        final String PATH_OF_FOLDER = "C:\\JAVA\\Search\\HW01-gradle";
+        final String PATH_OF_FOLDER = "D:\\AUTORUN\\AUTORUNX";
 //        SearchUsingByteArray.startSearch(PATH_OF_FOLDER);
 //        SearchUsingString.startSearch(PATH_OF_FOLDER);
-        SearchUsingHashMap.startSearch(PATH_OF_FOLDER);
-//            Map<String, String> asd = new HashMap<>();
-//            asd.put("key1", "asdas");
-//            asd.put("key1","fghfgbfgbfvfvb");
-//        System.out.println(asd);
+        var duplicate = SearchUsingHashMap.startSearch(PATH_OF_FOLDER);
+        System.out.println("Found " + duplicate.size() + " duplicates:");
+        for (int i = 0; i < duplicate.size(); i++) {
+            System.out.println(i + 1 + ". " + duplicate.get(i));
+        }
+
     }
 }
