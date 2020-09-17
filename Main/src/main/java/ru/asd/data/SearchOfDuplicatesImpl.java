@@ -24,8 +24,12 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
     public List<Path> getListOfDuplicatesUsingHashMap(Map<Path, byte[]> mapMd5Byte) {
         List<Path> listOfDuplicateKey = new ArrayList<>();
         Map<byte[], Path> mapMd5NotDuplicate = new HashMap<>();
-        mapMd5Byte.forEach((k, v) -> listNotDuplicate.add(v));
-        mapMd5NotDuplicate.forEach((k, v) -> mapMd5Byte.remove(v));
+        mapMd5Byte.forEach((k, v) -> mapMd5NotDuplicate.put(v,k));
+        System.out.println("----mapMd5Byte------");
+        mapMd5Byte.forEach((k, v) -> System.out.println(v+"="+k));
+        System.out.println("-----mapMd5NotDuplicate----------");
+        mapMd5NotDuplicate.forEach((k, v) -> System.out.println(k+"="+v));
+//        mapMd5NotDuplicate.forEach((k, v) -> mapMd5Byte.remove(v));
         mapMd5Byte.forEach((k, v) -> listOfDuplicateKey.add(k));
         return listOfDuplicateKey;
     }
