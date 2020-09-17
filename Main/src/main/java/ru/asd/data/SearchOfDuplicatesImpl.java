@@ -20,6 +20,16 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
         return getListOfDuplicates();
     }
 
+    @Override
+    public List<Path> getListOfDuplicatesUsingHashMap(Map<Path, byte[]> mapMd5Byte) {
+        List<Path> listOfDuplicateKey = new ArrayList<>();
+        Map<byte[], Path> mapMd5NotDuplicate = new HashMap<>();
+        mapMd5Byte.forEach((k, v) -> listNotDuplicate.add(v));
+        mapMd5NotDuplicate.forEach((k, v) -> mapMd5Byte.remove(v));
+        mapMd5Byte.forEach((k, v) -> listOfDuplicateKey.add(k));
+        return listOfDuplicateKey;
+    }
+
     private List<Path> getListOfDuplicates() {
         String bufferValueMd5;
         List<Path> listOfDuplicateKey = new ArrayList<>();

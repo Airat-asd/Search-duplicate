@@ -9,4 +9,7 @@ public interface SearchOfDuplicates {
     List<Path> getListOfDuplicatesFromByte(Map<Path, byte[]> mapMd5Byte);
 
     List<Path> getListOfDuplicatesFromString(Map<Path, String> mapMd5Byte);
+
+    List<Path> getListOfDuplicatesUsingHashMap(Map<Path, byte[]> mapMd5Byte);
+
 }
