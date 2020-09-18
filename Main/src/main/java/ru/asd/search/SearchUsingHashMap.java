@@ -13,13 +13,12 @@ import java.util.List;
 import java.util.Map;
 
 public class SearchUsingHashMap {
-    public static List<Path> startSearch(String path) {
+    public static void startSearch(String path) {
         ListOfFiles listOfFiles = new ListOfFilesImpl(path);
         DataStorage dataStorage = new DataStorageImpl();
         Map<Path, String> mapMd5AndFile = dataStorage.mapByteNotSorted(listOfFiles);
         SearchOfDuplicates getDuplicate = new SearchOfDuplicatesImpl();
-        var duplicate = getDuplicate.getListOfDuplicatesUsingHashMap(mapMd5AndFile);
-        return duplicate;
+        List<Path> duplicate = getDuplicate.getListOfDuplicatesUsingHashMap(mapMd5AndFile);
+        PrintDuplicate.printDuplicate(duplicate);
     }
-
 }

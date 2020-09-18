@@ -10,10 +10,6 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
         List<Path> listOfDuplicateKey = new ArrayList<>();
         Map<String, Path> mapMd5NotDuplicate = new HashMap<>();
         mapMd5.forEach((k, v) -> mapMd5NotDuplicate.put(v, k));
-//        System.out.println("----mapMd5Byte------");
-//        mapMd5Byte.forEach((k, v) -> System.out.println(v + "=" + k));
-//        System.out.println("-----mapMd5NotDuplicate----------");
-//        mapMd5NotDuplicate.forEach((k, v) -> System.out.println(k + "=" + v));
         mapMd5NotDuplicate.forEach((k, v) -> mapMd5.remove(v));
         mapMd5.forEach((k, v) -> listOfDuplicateKey.add(k));
         return listOfDuplicateKey;

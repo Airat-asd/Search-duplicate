@@ -4,6 +4,7 @@ import ru.asd.data.*;
 import ru.asd.file.*;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 
 public class SearchUsingByteArray {
@@ -12,10 +13,7 @@ public class SearchUsingByteArray {
         DataStorage dataStorage = new DataStorageImpl();
         Map<Path, String> mapMd5AndFile = dataStorage.mapByteNotSorted(listOfFiles);
         SearchOfDuplicates getDuplicate = new SearchOfDuplicatesImpl();
-        var duplicate = getDuplicate.getListOfDuplicates(mapMd5AndFile);
-        System.out.println("Found " + duplicate.size() + " duplicates:");
-        for (int i = 0; i < duplicate.size(); i++) {
-            System.out.println(i + 1 + ". " + duplicate.get(i));
-        }
+        List<Path> duplicate = getDuplicate.getListOfDuplicates(mapMd5AndFile);
+        PrintDuplicate.printDuplicate(duplicate);
     }
 }
