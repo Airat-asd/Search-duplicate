@@ -13,9 +13,9 @@ public class SearchUsingString {
         Map<Path, String> mapMd5AndFile;
         ListOfFiles listOfFiles = new ListOfFilesImpl(path);
         DataStorage dataStorage = new DataStorageImpl();
-        mapMd5AndFile = dataStorage.mapStringNotSorted(listOfFiles);
+        mapMd5AndFile = dataStorage.getMapCodeMd5ThroughHEX(listOfFiles);
         SearchOfDuplicates getDuplicate = new SearchOfDuplicatesImpl();
-        List<Path> duplicate = getDuplicate.getListOfDuplicates(mapMd5AndFile);
+        List<Path> duplicate = getDuplicate.getListOfDuplicatesBubbleMethod(mapMd5AndFile);
         PrintDuplicate.printDuplicate(duplicate);
     }
 }

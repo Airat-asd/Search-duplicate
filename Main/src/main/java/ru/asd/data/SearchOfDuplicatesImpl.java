@@ -2,6 +2,7 @@ package ru.asd.data;
 
 import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
 
@@ -16,7 +17,7 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
     }
 
     @Override
-    public List<Path> getListOfDuplicates(Map<Path, String> mapMd5) {
+    public List<Path> getListOfDuplicatesBubbleMethod(Map<Path, String> mapMd5) {
         String bufferValueMd5;
         List<Path> listOfDuplicateKey = new ArrayList<>();
         int counterFirst = 0;

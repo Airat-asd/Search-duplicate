@@ -6,8 +6,9 @@ import java.util.Map;
 
 public interface SearchOfDuplicates {
 
-    List<Path> getListOfDuplicates(Map<Path, String> mapMd5Byte);
+    List<Path> getListOfDuplicatesBubbleMethod(Map<Path, String> mapMd5Byte);
 
     List<Path> getListOfDuplicatesUsingHashMap(Map<Path, String> mapMd5Byte);
+
 
 }
