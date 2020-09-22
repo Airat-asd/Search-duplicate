@@ -5,9 +5,7 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-import ru.asd.search.SearchUsingByteArray;
-import ru.asd.search.SearchUsingHashMap;
-import ru.asd.search.SearchUsingString;
+import ru.asd.search.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +13,8 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.SingleShotTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class JMHTestSearch {
-    private static final String PATH_OF_FOLDER = "Main\\src\\test\\resources\\Search";
+    private static final String PATH_OF_FOLDER = "C:\\JAVA\\Search";
+//    private static final String PATH_OF_FOLDER = "Main\\src\\test\\resources\\Search";
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder().include(JMHTestSearch.class.getSimpleName()).forks(1).build();
@@ -23,18 +22,48 @@ public class JMHTestSearch {
     }
 
     @Benchmark
-    public void SearchUsingByteArrayTest() {
-        SearchUsingByteArray.startSearch(PATH_OF_FOLDER);
+    public void SearchDuplicatesBySortingBubbleByteArrayTest() {
+        SearchDuplicatesBySortingBubble.searchUsingByteArray(PATH_OF_FOLDER);
     }
 
     @Benchmark
-    public void SearchUsingStringTest() {
-        SearchUsingString.startSearch(PATH_OF_FOLDER);
+    public void SearchDuplicatesBySortingBubbleHEXTest() {
+        SearchDuplicatesBySortingBubble.searchUsingHEX(PATH_OF_FOLDER);
     }
 
     @Benchmark
-    public void SearchUsingHashMapTest() {
-        SearchUsingHashMap.startSearch(PATH_OF_FOLDER);
+    public void SearchDuplicatesUsingHashSetByteArrayTest() {
+        SearchDuplicatesUsingHashSet.searchDuplicateUsingByteArray(PATH_OF_FOLDER);
+    }
+
+    @Benchmark
+    public void SearchDuplicatesUsingHashSetHEXTest() {
+        SearchDuplicatesUsingHashSet.searchDuplicateUsingHEX(PATH_OF_FOLDER);
+    }
+
+    @Benchmark
+    public void SearchDuplicatesUsingSetTest() {
+        SearchDuplicatesUsingSet.searchDuplicateUsingSet(PATH_OF_FOLDER);
+    }
+
+    @Benchmark
+    public void SearchDuplicatesUsingStreamByteArrayTest() {
+        SearchDuplicatesUsingStream.searchDuplicateUsingByteArray(PATH_OF_FOLDER);
+    }
+
+    @Benchmark
+    public void SearchDuplicatesUsingStreamHEXTest() {
+        SearchDuplicatesUsingStream.searchDuplicateUsingHEX(PATH_OF_FOLDER);
+    }
+
+    @Benchmark
+    public void SearchUsingHashMapByteArrayTest() {
+        SearchUsingHashMap.searchDuplicateUsingByteArray(PATH_OF_FOLDER);
+    }
+
+    @Benchmark
+    public void SearchUsingHashMapHEXTest() {
+        SearchUsingHashMap.searchDuplicateUsingHEX(PATH_OF_FOLDER);
     }
 
 }

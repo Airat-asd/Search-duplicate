@@ -12,7 +12,6 @@ public class DataStorageImpl implements DataStorage {
     public Map<Path, String> getMapCodeMd5ThroughByteArray(ListOfFiles listOfFiles) {
         ReadFile readFile = new ReadFileImpl();
         Map<Path, String> mapMd5 = new HashMap<>();
-
         for (Path file : listOfFiles.getListOfFiles()) {
             if (readFile.getReadFile(file) != null) {
                 var code = ConvertToMd5.md5ConvertToByte(readFile.getReadFile(file));
@@ -35,6 +34,24 @@ public class DataStorageImpl implements DataStorage {
         }
         return mapMd5;
     }
+
+    @Override
+    public List<Path> getMapCodeMd5ThroughHashSet(ListOfFiles listOfFiles) {
+        ReadFile readFile = new ReadFileImpl();
+        List<Path> listDuplicate = new ArrayList<>();
+        Set<String> set = new HashSet<>();
+
+        for (Path file : listOfFiles.getListOfFiles()) {
+            if (readFile.getReadFile(file) != null) {
+                var code = ConvertToMd5.md5ConvertToByte(readFile.getReadFile(file));
+                if (!set.add(code)) {
+                    listDuplicate.add(file);
+                }
+            }
+        }
+        return listDuplicate;
+    }
+
 
     @Override
     public Map<Path, String> mapSorted(ListOfFiles listOfFiles) {

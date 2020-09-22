@@ -29,8 +29,6 @@ allprojects {
             imports {
                 mavenBom("org.springframework.boot:spring-boot-dependencies:2.2.6.RELEASE")
             }
-            dependency("org.openjdk.jmh:jmh-core:${Versions.jmh}")
-            dependency("org.openjdk.jmh:jmh-generator-annprocess:${Versions.jmh}")
 			dependency("commons-codec:commons-codec:${Versions.codec}")
             dependency("com.massisframework:j-text-utils:${Versions.jtext}")
             dependency("com.google.guava:guava:${Versions.guava}")

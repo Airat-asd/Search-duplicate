@@ -1,21 +1,16 @@
 package ru.asd.search;
 
-import ru.asd.data.DataStorage;
-import ru.asd.data.DataStorageImpl;
 import ru.asd.data.SearchOfDuplicates;
 import ru.asd.data.SearchOfDuplicatesImpl;
-import ru.asd.file.ListOfFiles;
-import ru.asd.file.ListOfFilesImpl;
 
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
 
-public class SearchUsingHashMap {
+public class SearchDuplicatesUsingHashSet {
     public static void searchDuplicateUsingByteArray(String path) {
         long begin = System.currentTimeMillis();
         SearchOfDuplicates getDuplicate = new SearchOfDuplicatesImpl();
-        List<Path> duplicate = getDuplicate.getListOfDuplicatesUsingHashMap(MapCodeMd5FromByteArray.getCodeByteArray(path));
+        List<Path> duplicate = getDuplicate.getListOfDuplicatesUsingHashSet(MapCodeMd5FromByteArray.getCodeByteArray(path));
         PrintDuplicate.printDuplicate(duplicate);
         System.out.println("myArr time:" + (System.currentTimeMillis() - begin));
     }
@@ -23,7 +18,7 @@ public class SearchUsingHashMap {
     public static void searchDuplicateUsingHEX(String path) {
         long begin = System.currentTimeMillis();
         SearchOfDuplicates getDuplicate = new SearchOfDuplicatesImpl();
-        List<Path> duplicate = getDuplicate.getListOfDuplicatesUsingHashMap(MapCOdeMd5FromHEX.getCodeHEX(path));
+        List<Path> duplicate = getDuplicate.getListOfDuplicatesUsingHashSet(MapCOdeMd5FromHEX.getCodeHEX(path));
         PrintDuplicate.printDuplicate(duplicate);
         System.out.println("myArr time:" + (System.currentTimeMillis() - begin));
     }
