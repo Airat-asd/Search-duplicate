@@ -12,6 +12,4 @@ public interface DataStorage {
     Map<Path, String> getMapCodeMd5ThroughHEX(ListOfFiles listOfFiles);
 
     List<Path> getMapCodeMd5ThroughHashSet(ListOfFiles listOfFiles);
-
-    Map<Path, String> mapSorted (ListOfFiles listOfFiles);
 }

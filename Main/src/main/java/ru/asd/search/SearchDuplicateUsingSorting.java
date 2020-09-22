@@ -1,26 +1,22 @@
 package ru.asd.search;
 
-import ru.asd.data.DataStorage;
-import ru.asd.data.DataStorageImpl;
 import ru.asd.data.SearchOfDuplicates;
 import ru.asd.data.SearchOfDuplicatesImpl;
-import ru.asd.file.ListOfFiles;
-import ru.asd.file.ListOfFilesImpl;
 
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
 
-public class SearchDuplicatesUsingStream {
+public class SearchDuplicateUsingSorting {
     public static void searchDuplicateUsingByteArray(String path) {
         SearchOfDuplicates getDuplicate = new SearchOfDuplicatesImpl();
-        List<Path> duplicate = getDuplicate.getListOfDuplicatesUsingStream(MapCodeMd5FromByteArray.getCodeByteArray(path));
+        List<Path> duplicate = getDuplicate.getListOfDuplicatesUsingSorted(MapCodeMd5FromByteArray.getCodeByteArray(path));
         PrintDuplicate.printDuplicate(duplicate);
     }
 
     public static void searchDuplicateUsingHEX(String path) {
         SearchOfDuplicates getDuplicate = new SearchOfDuplicatesImpl();
-        List<Path> duplicate = getDuplicate.getListOfDuplicatesUsingStream(MapCOdeMd5FromHEX.getCodeHEX(path));
+        List<Path> duplicate = getDuplicate.getListOfDuplicatesUsingSorted(MapCOdeMd5FromHEX.getCodeHEX(path));
         PrintDuplicate.printDuplicate(duplicate);
     }
+
 }

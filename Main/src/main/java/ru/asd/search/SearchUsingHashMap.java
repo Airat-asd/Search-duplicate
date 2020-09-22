@@ -13,18 +13,14 @@ import java.util.Map;
 
 public class SearchUsingHashMap {
     public static void searchDuplicateUsingByteArray(String path) {
-        long begin = System.currentTimeMillis();
         SearchOfDuplicates getDuplicate = new SearchOfDuplicatesImpl();
         List<Path> duplicate = getDuplicate.getListOfDuplicatesUsingHashMap(MapCodeMd5FromByteArray.getCodeByteArray(path));
         PrintDuplicate.printDuplicate(duplicate);
-        System.out.println("myArr time:" + (System.currentTimeMillis() - begin));
     }
 
     public static void searchDuplicateUsingHEX(String path) {
-        long begin = System.currentTimeMillis();
         SearchOfDuplicates getDuplicate = new SearchOfDuplicatesImpl();
         List<Path> duplicate = getDuplicate.getListOfDuplicatesUsingHashMap(MapCOdeMd5FromHEX.getCodeHEX(path));
         PrintDuplicate.printDuplicate(duplicate);
-        System.out.println("myArr time:" + (System.currentTimeMillis() - begin));
     }
 }

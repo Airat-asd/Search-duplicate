@@ -1,5 +1,7 @@
 package ru.asd.data;
 
+import ru.asd.search.PrintDuplicate;
+
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,6 +19,8 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
     }
 
     @Override
+    //Проходим стримом по мапе, фильтруем элементы с помощью Set(если элемент в set уже есть,
+    // то set.add возвращает false и получаем лист с дубликатами.
     public List<Path> getListOfDuplicatesUsingStream(Map<Path, String> mapMd5) {
         Set<String> set = new HashSet<>(mapMd5.size());
         List<String> listCodeDuplicate = mapMd5.entrySet().stream()
@@ -24,8 +28,8 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
                 .filter(e -> !set.add(e))
                 .distinct()
                 .collect(Collectors.toList());
+        //Составляем лист с ссылками на дубликаты файлов
         List<Path> listPathDuplicate = new ArrayList<>(listCodeDuplicate.size());
-
         for (String duplicate : listCodeDuplicate) {
             int count = 0;
             for (Map.Entry<Path, String> entry : mapMd5.entrySet()) {
@@ -53,30 +57,38 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
     }
 
     @Override
-    //Проходим стримом по мапе, фильтруем элементы с помощью Set(если элемент в set уже есть,
-    // то set.add возвращает false и получаем лист с дубликатами.
-    public List<Path> getListOfDuplicatesBySortingUsingArrayList(Map<Path, String> mapMd5) {
-        List<Path> listPathDuplicate;
-        Set<String> set = new HashSet<>(mapMd5.size());
-        List<String> listCodeDuplicate = mapMd5.entrySet().stream()
-                .map(Map.Entry::getValue)
-                .filter(e -> !set.add(e))
-                .distinct()
-                .collect(Collectors.toList());
-        //Составляем лист с ссылками на дубликаты файлов
-        listPathDuplicate = new ArrayList<>(listCodeDuplicate.size());
-        for (String duplicate : listCodeDuplicate) {
+    public List<Path> getListOfDuplicatesUsingSorted(Map<Path, String> mapMd5) {
+        List<String> listMd5 = new LinkedList<String>(mapMd5.values());
+        Set<String> listDuplicate = new HashSet<>();
+
+        listMd5.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        });
+        String buffer = null;
+        for (String element : listMd5) {
+            if (element.equals(buffer)) {
+                listDuplicate.add(element);
+            }
+            buffer = element;
+        }
+        List<Path> ListPathDuplicate = new ArrayList<>(listDuplicate.size());
+
+        for (String duplicate : listDuplicate) {
             int count = 0;
-            for (Map.Entry<Path, String> entry : mapMd5.entrySet()) {
-                if (entry.getValue().equals(duplicate)) {
+            for (Map.Entry<Path, String> map : mapMd5.entrySet()) {
+                if (map.getValue().equals(duplicate)) {
                     count++;
                     if (count > 1) {
-                        listPathDuplicate.add(entry.getKey());
+                        ListPathDuplicate.add(map.getKey());
                     }
                 }
             }
         }
-        return listPathDuplicate.stream().distinct().collect(Collectors.toList());
+
+        return ListPathDuplicate;
     }
 
     @Override

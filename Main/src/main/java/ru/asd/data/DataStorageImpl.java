@@ -51,14 +51,4 @@ public class DataStorageImpl implements DataStorage {
         }
         return listDuplicate;
     }
-
-
-    @Override
-    public Map<Path, String> mapSorted(ListOfFiles listOfFiles) {
-        ReadFile readFile = new ReadFileImpl();
-        List<String> code = listOfFiles.getListOfFiles().stream().map(list -> ConvertToMd5.md5ConvertToHex(readFile.getReadFile(list))).collect(Collectors.toList());
-        return null;
-    }
-
-
 }

@@ -10,7 +10,7 @@ import ru.asd.search.*;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Thread)
-@BenchmarkMode(Mode.SingleShotTime)
+@BenchmarkMode({Mode.AverageTime})
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class JMHTestSearch {
     private static final String PATH_OF_FOLDER = "C:\\JAVA\\Search";
@@ -64,6 +64,16 @@ public class JMHTestSearch {
     @Benchmark
     public void SearchUsingHashMapHEXTest() {
         SearchUsingHashMap.searchDuplicateUsingHEX(PATH_OF_FOLDER);
+    }
+
+    @Benchmark
+    public void SearchDuplicateUsingSortingByteArrayTest() {
+        SearchDuplicateUsingSorting.searchDuplicateUsingByteArray(PATH_OF_FOLDER);
+    }
+
+    @Benchmark
+    public void SearchDuplicateUsingSortingHEXTest() {
+        SearchDuplicateUsingSorting.searchDuplicateUsingHEX(PATH_OF_FOLDER);
     }
 
 }
