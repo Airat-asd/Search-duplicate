@@ -7,10 +7,13 @@ import java.util.stream.Collectors;
 public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
 
     @Override
+    //Использую свойство Map перезаписывать ячейки при добавлении значений с одинаковым ключём, тем самым получаем Map
+    //без дублей.
     public List<Path> getListOfDuplicatesUsingHashMap(Map<Path, String> mapMd5) {
         List<Path> listOfDuplicateKey = new ArrayList<>();
         Map<String, Path> mapMd5NotDuplicate = new HashMap<>();
         mapMd5.forEach((k, v) -> mapMd5NotDuplicate.put(v, k));
+        //Удаляем из mapMd5 все уникальные значения, в итоге остаются только дубли
         mapMd5NotDuplicate.forEach((k, v) -> mapMd5.remove(v));
         mapMd5.forEach((k, v) -> listOfDuplicateKey.add(k));
         return listOfDuplicateKey;
@@ -18,7 +21,7 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
 
     @Override
     //Проходим стримом по мапе, фильтруем элементы с помощью Set(если элемент в set уже есть,
-    // то set.add возвращает false и получаем лист с дубликатами.
+    // то set.add возвращает false) получаем лист с дубликатами.
     public List<Path> getListOfDuplicatesUsingStream(Map<Path, String> mapMd5) {
         Set<String> set = new HashSet<>(mapMd5.size());
         List<String> listCodeDuplicate = mapMd5.entrySet().stream()
@@ -43,6 +46,8 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
     }
 
     @Override
+    //Проходим foreach по мапе И с помощью Set(если элемент в set уже есть,
+    // то set.add возвращает false) получаем лист с дубликатами.
     public List<Path> getListOfDuplicatesUsingHashSet(Map<Path, String> mapMd5) {
         Set<String> set = new HashSet<>(mapMd5.size());
         List<Path> listPathOfDuplicate = new ArrayList<>();
@@ -53,10 +58,10 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
         }
         return listPathOfDuplicate;
     }
-
+    //Перекладываем все values из mapMd5 в лист и далее его сортируем
     @Override
     public List<Path> getListOfDuplicatesUsingSorted(Map<Path, String> mapMd5) {
-        List<String> listMd5 = new LinkedList<String>(mapMd5.values());
+        List<String> listMd5 = new LinkedList<>(mapMd5.values());
         Set<String> listDuplicate = new HashSet<>();
 
         listMd5.sort(new Comparator<String>() {
@@ -65,6 +70,7 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
                 return o1.compareTo(o2);
             }
         });
+        //Ищем одинаковые значения, расположенные друг за другом и складываем их в listDuplicate
         String buffer = null;
         for (String element : listMd5) {
             if (element.equals(buffer)) {
@@ -73,7 +79,7 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
             buffer = element;
         }
         List<Path> ListPathDuplicate = new ArrayList<>(listDuplicate.size());
-
+        //Используя listDuplicate с хэшкодами Md5, собираем лист с ссылками на дубли
         for (String duplicate : listDuplicate) {
             int count = 0;
             for (Map.Entry<Path, String> map : mapMd5.entrySet()) {
@@ -90,19 +96,18 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
     }
 
     @Override
+    //Используя принцип алгоритма сортировки пузырьком ищем повторяющиеся хэшкоды Md5
     public List<Path> getListOfDuplicatesBubbleMethod(Map<Path, String> mapMd5) {
-        String bufferValueMd5;
         List<Path> listOfDuplicateKey = new ArrayList<>();
         int counterFirst = 0;
         int counterSecond;
         for (Map.Entry<Path, String> entryFirst : mapMd5.entrySet()) {
-            bufferValueMd5 = entryFirst.getValue();
             counterFirst++;
             counterSecond = 0;
             for (Map.Entry<Path, String> entrySecond : mapMd5.entrySet()) {
                 counterSecond++;
                 if (counterSecond > counterFirst) {
-                    if (entrySecond.getValue().equals(bufferValueMd5)) {
+                    if (entrySecond.getValue().equals(entryFirst.getValue())) {
                         if (!entrySecond.getValue().equals("")) {
                             listOfDuplicateKey.add(entrySecond.getKey());
                             entrySecond.setValue("");
