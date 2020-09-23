@@ -13,8 +13,7 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode({Mode.AverageTime})
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class JMHTestSearch {
-    private static final String PATH_OF_FOLDER = "C:\\JAVA\\Search";
-//    private static final String PATH_OF_FOLDER = "Main\\src\\test\\resources\\Search";
+    private static final String PATH_OF_FOLDER = "Main\\src\\test\\resources\\Search";
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder().include(JMHTestSearch.class.getSimpleName()).forks(1).build();
