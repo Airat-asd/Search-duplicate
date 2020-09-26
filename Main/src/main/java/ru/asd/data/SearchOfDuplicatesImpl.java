@@ -64,12 +64,7 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
         List<String> listMd5 = new LinkedList<>(mapMd5.values());
         Set<String> listDuplicate = new HashSet<>();
 
-        listMd5.sort(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o1.compareTo(o2);
-            }
-        });
+        listMd5.sort(String::compareTo);
         //Ищем одинаковые значения, расположенные друг за другом и складываем их в listDuplicate
         String buffer = null;
         for (String element : listMd5) {

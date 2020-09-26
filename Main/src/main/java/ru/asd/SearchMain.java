@@ -2,6 +2,9 @@ package ru.asd;
 
 import ru.asd.search.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class SearchMain {
     public static void main(String[] args) {
         final String PATH_OF_FOLDER = "Main\\src\\test\\resources\\Search";
@@ -45,5 +48,10 @@ public class SearchMain {
         SearchDuplicateUsingSorting.searchDuplicateUsingByteArray(PATH_OF_FOLDER);
         System.out.println("------------------------");
 
+
+        List<String> link = new LinkedList<>();
+        link.add("asd1");
+        link.add("asd2");
+        System.out.println(link.get(1));
     }
 }
