@@ -2,6 +2,7 @@ package ru.asd.data;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.asd.search.SearchOfDuplicatesImpl;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -76,12 +77,6 @@ class SearchOfDuplicatesImplTest {
     void getListOfDuplicatesUsingSorted() {
         List<Path> actualDuplicate = searchOfDuplicates.getListOfDuplicatesUsingSorted(mapMd5);
         assertEquals(expectedGetListOfDuplicatesUsingSorted, actualDuplicate);
-    }
-
-    @Test
-    void getListOfDuplicatesBubbleMethod() {
-        List<Path> actualDuplicate = searchOfDuplicates.getListOfDuplicatesBubbleMethod(mapMd5);
-        assertEquals(expectedGetListOfDuplicatesUsingStream, actualDuplicate);
     }
 
 }

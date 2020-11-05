@@ -1,4 +1,9 @@
-package ru.asd.data;
+package ru.asd.search;
+
+import ru.asd.code.ConvertToMd5Impl;
+import ru.asd.file.ListOfFiles;
+import ru.asd.file.ReadFile;
+import ru.asd.file.ReadFileImpl;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -45,19 +50,6 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
         return listPathDuplicate;
     }
 
-    @Override
-    //Проходим foreach по мапе И с помощью Set(если элемент в set уже есть,
-    // то set.add возвращает false) получаем лист с дубликатами.
-    public List<Path> getListOfDuplicatesUsingHashSet(Map<Path, String> mapMd5) {
-        Set<String> set = new HashSet<>(mapMd5.size());
-        List<Path> listPathOfDuplicate = new ArrayList<>();
-        for (Map.Entry<Path, String> entry : mapMd5.entrySet()) {
-            if (!set.add(entry.getValue())) {
-                listPathOfDuplicate.add(entry.getKey());
-            }
-        }
-        return listPathOfDuplicate;
-    }
     //Перекладываем все values из mapMd5 в лист и далее его сортируем
     @Override
     public List<Path> getListOfDuplicatesUsingSorted(Map<Path, String> mapMd5) {
@@ -86,32 +78,21 @@ public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
                 }
             }
         }
-
         return ListPathDuplicate;
     }
 
     @Override
-    //Используя принцип алгоритма сортировки пузырьком ищем повторяющиеся хэшкоды Md5
-    public List<Path> getListOfDuplicatesBubbleMethod(Map<Path, String> mapMd5) {
-        List<Path> listOfDuplicateKey = new ArrayList<>();
-        int counterFirst = 0;
-        int counterSecond;
-        for (Map.Entry<Path, String> entryFirst : mapMd5.entrySet()) {
-            counterFirst++;
-            counterSecond = 0;
-            for (Map.Entry<Path, String> entrySecond : mapMd5.entrySet()) {
-                counterSecond++;
-                if (counterSecond > counterFirst) {
-                    if (entrySecond.getValue().equals(entryFirst.getValue())) {
-                        if (!entrySecond.getValue().equals("")) {
-                            listOfDuplicateKey.add(entrySecond.getKey());
-                            entrySecond.setValue("");
-                        }
-                    }
-                }
+    //Проходим foreach по мапе И с помощью Set(если элемент в set уже есть,
+    // то set.add возвращает false) получаем лист с дубликатами.
+    public List<Path> getListOfDuplicatesUsingHashSet(Map<Path, String> mapMd5) {
+        Set<String> set = new HashSet<>(mapMd5.size());
+        List<Path> listPathOfDuplicate = new ArrayList<>();
+        for (Map.Entry<Path, String> entry : mapMd5.entrySet()) {
+            if (!set.add(entry.getValue())) {
+                listPathOfDuplicate.add(entry.getKey());
             }
-
         }
-        return listOfDuplicateKey;
+        return listPathOfDuplicate;
     }
+
 }

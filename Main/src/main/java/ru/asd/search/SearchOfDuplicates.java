@@ -1,12 +1,12 @@
-package ru.asd.data;
+package ru.asd.search;
+
+import ru.asd.file.ListOfFiles;
 
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
 public interface SearchOfDuplicates {
-
-    List<Path> getListOfDuplicatesBubbleMethod(Map<Path, String> mapMd5);
 
     List<Path> getListOfDuplicatesUsingHashMap(Map<Path, String> mapMd5);
 
@@ -15,6 +15,4 @@ public interface SearchOfDuplicates {
     List<Path> getListOfDuplicatesUsingHashSet(Map<Path, String> mapMd5);
 
     List<Path> getListOfDuplicatesUsingSorted(Map<Path, String> mapMd5);
-
-
 }
