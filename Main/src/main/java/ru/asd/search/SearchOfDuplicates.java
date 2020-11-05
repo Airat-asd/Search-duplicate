@@ -8,10 +8,6 @@ import java.util.Map;
 
 public interface SearchOfDuplicates {
 
-    List<Path> getListOfDuplicatesUsingHashMap(Map<Path, String> mapMd5);
-
-    List<Path> getListOfDuplicatesUsingStream(Map<Path, String> mapMd5);
-
     List<Path> getListOfDuplicatesUsingHashSet(Map<Path, String> mapMd5);
 
     List<Path> getListOfDuplicatesUsingSorted(Map<Path, String> mapMd5);

@@ -13,33 +13,38 @@ public class DataStorageImpl implements DataStorage {
 
     @Override
     public Map<Path, String> getMapFromHashMd5(ListOfFiles listOfFiles) {
-        ReadFile readFile = new ReadFileImpl();
         Map<Path, String> mapMd5 = new HashMap<>();
+        List<PathAndMd5> listFromHashMd5 = getListFromHashMd5(listOfFiles);
+        listFromHashMd5.stream()
+                .reduce(0,
+                        (x, y) -> {
+                            mapMd5.put(x.getPath(), x.getMd5());
+                        },
+                        0);
+        return mapMd5;
+    }
+
+    @Override
+    public List<PathAndMd5> getListFromHashMd5(ListOfFiles listOfFiles) {
+        ReadFile readFile = new ReadFileImpl();
+        List<PathAndMd5> pathAndMd5 = new ArrayList<>();
         List<SizeAndPath> sizeAndPath = getListFromSizeAndPath(listOfFiles);
         Long bufferSize = -1L;
         Path bufferPath = Paths.get("");
-        Long a;
         String code, codeBuffer;
         for (int i = 0; i < sizeAndPath.size(); i++) {
-            a = sizeAndPath.get(i).getSize();
-            if (a.equals(bufferSize)) {
+            if (sizeAndPath.get(i).getSize().equals(bufferSize)) {
                 code = new ConvertToMd5Impl().md5ConvertToHex(readFile.getReadFile(sizeAndPath.get(i).getPath()));
-                mapMd5.put(sizeAndPath.get(i).getPath(), code);
+                pathAndMd5.add(new PathAndMd5(sizeAndPath.get(i).getPath(), code));
+//                mapMd5.put(sizeAndPath.get(i).getPath(), code);
                 codeBuffer = new ConvertToMd5Impl().md5ConvertToHex(readFile.getReadFile(bufferPath));
-                mapMd5.put(bufferPath, codeBuffer);
+                pathAndMd5.add(new PathAndMd5(bufferPath, codeBuffer));
+//                mapMd5.put(bufferPath, codeBuffer);
             }
-            bufferSize = sizeAndPath.get(i).getSize();
-            bufferPath = sizeAndPath.get(i).getPath();
+//            bufferSize = sizeAndPath.get(i).getSize();
+//            bufferPath = sizeAndPath.get(i).getPath();
         }
-        System.out.println(mapMd5);
-//        for (Path file : listOfFiles.getListOfFiles()) {
-//            if (readFile.getReadFile(file) != null) {
-//                var code = new ConvertToMd5Impl().md5ConvertToHex(readFile.getReadFile(file));
-//                mapMd5.put(file, code);
-//
-//            }
-//        }
-        return mapMd5;
+        return pathAndMd5;
     }
 
     private List<SizeAndPath> getListFromSizeAndPath(ListOfFiles listOfFiles) {
@@ -51,21 +56,16 @@ public class DataStorageImpl implements DataStorage {
                 e.printStackTrace();
             }
         }
-        sizeAndPath.sort(new Comparator<SizeAndPath>() {
-            @Override
-            public int compare(SizeAndPath o1, SizeAndPath o2) {
-                if ((o1.getSize() - o2.getSize()) > 0) {
-                    return 1;
-                }
-                if ((o1.getSize() - o2.getSize()) < 0) {
-                    return 1;
-                } else {
-                    return 0;
-                }
+        sizeAndPath.sort((o1, o2) -> {
+            if ((o1.getSize() - o2.getSize()) > 0) {
+                return 1;
+            }
+            if ((o1.getSize() - o2.getSize()) < 0) {
+                return 1;
+            } else {
+                return 0;
             }
         });
-        System.out.println(sizeAndPath);
-
         return sizeAndPath;
     }
 }
