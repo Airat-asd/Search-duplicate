@@ -2,7 +2,7 @@ public interface Versions {
     String codec = "1.15";
     String jtext = "0.3.4";
     String guava = "28.2-jre";
-    String jmh = "1.23";
+    String jmh = "1.26";
     String jol = "0.10";
     String asm = "8.0.1";
     String glassfishJson = "1.1.4";

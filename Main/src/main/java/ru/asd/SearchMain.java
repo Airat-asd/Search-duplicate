@@ -24,7 +24,7 @@ public class SearchMain {
         RunningADuplicateSearchUsingASorting.run(PATH_OF_FOLDER);
         System.out.println("------------------------");
 
-        System.out.println("Searching duplicates using a SET1:");
+        System.out.println("Searching duplicates using a SET:");
         RunningADuplicateSearchUsingAHashSet.run(PATH_OF_FOLDER);
         System.out.println("------------------------");
 

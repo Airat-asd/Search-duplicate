@@ -5,7 +5,10 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-import ru.asd.launcher.*;
+import ru.asd.launcher.RunningADuplicateSearchUsingAHashMap;
+import ru.asd.launcher.RunningADuplicateSearchUsingAHashSet;
+import ru.asd.launcher.RunningADuplicateSearchUsingASorting;
+import ru.asd.launcher.RunningADuplicateSearchUsingAStream;
 
 import java.util.concurrent.TimeUnit;
 
