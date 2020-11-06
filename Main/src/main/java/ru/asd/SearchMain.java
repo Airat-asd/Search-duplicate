@@ -13,12 +13,12 @@ public class SearchMain {
 //        final String PATH_OF_FOLDER = "C:\\Gradle\\gradle-6.3\\docs\\javadoc";
         final String PATH_OF_FOLDER = "E:\\YandexDisk\\Фотокамера";
 
-//        System.out.println("Searching duplicates using a sorting:");
-//        RunningADuplicateSearchUsingASorting.run(PATH_OF_FOLDER);
-//        System.out.println("------------------------");
-
         System.out.println("Searching duplicates using a SET:");
         RunningADuplicateSearchUsingAHashSet.run(PATH_OF_FOLDER);
+        System.out.println("------------------------");
+
+        System.out.println("Searching duplicates using a sorted:");
+        RunningADuplicateSearchUsingSorted.run(PATH_OF_FOLDER);
         System.out.println("------------------------");
 
     }

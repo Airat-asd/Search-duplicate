@@ -8,11 +8,14 @@ import ru.asd.search.SearchOfDuplicatesImpl;
 import java.nio.file.Path;
 import java.util.List;
 
-public class RunningADuplicateSearchUsingASorting {
-
+/**
+ * @author Ayrat Zagretdinov
+ * created on 05.11.2020
+ */
+public class RunningADuplicateSearchUsingSorted {
     public static void run(String path) {
         SearchOfDuplicates getDuplicate = new SearchOfDuplicatesImpl();
-        List<Path> duplicate = getDuplicate.getListOfDuplicatesUsingSorted(MapFromHashMd5.getMapFromHashMd5(path));
+        List<Path> duplicate = getDuplicate.getListOfDuplicatesUsingSorted(MapFromHashMd5.getListFromHashMd5(path));
         PrintDuplicate.printDuplicate(duplicate);
     }
 

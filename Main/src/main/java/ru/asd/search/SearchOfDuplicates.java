@@ -1,5 +1,6 @@
 package ru.asd.search;
 
+import ru.asd.data.PathAndMd5;
 import ru.asd.file.ListOfFiles;
 
 import java.nio.file.Path;
@@ -10,5 +11,6 @@ public interface SearchOfDuplicates {
 
     List<Path> getListOfDuplicatesUsingHashSet(Map<Path, String> mapMd5);
 
-    List<Path> getListOfDuplicatesUsingSorted(Map<Path, String> mapMd5);
+    List<Path> getListOfDuplicatesUsingSorted(List<PathAndMd5> mapMd5);
+
 }

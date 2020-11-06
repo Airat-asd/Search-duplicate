@@ -5,8 +5,8 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
+import ru.asd.launcher.RunningADuplicateSearchUsingSorted;
 import ru.asd.launcher.RunningADuplicateSearchUsingAHashSet;
-import ru.asd.launcher.RunningADuplicateSearchUsingASorting;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,13 +24,13 @@ public class JMHTestSearch {
     }
 
     @Benchmark
-    public void RunningADuplicateSearchUsingASortingTest() {
-        RunningADuplicateSearchUsingASorting.run(PATH_OF_FOLDER);
-    }
-
-    @Benchmark
     public void RunningADuplicateSearchUsingAHashSetTest() {
         RunningADuplicateSearchUsingAHashSet.run(PATH_OF_FOLDER);
     }
 
+    @Benchmark
+    public void RunningADuplicateSearchUsingSortedTest() {
+        RunningADuplicateSearchUsingSorted.run(PATH_OF_FOLDER);
+
+    }
 }

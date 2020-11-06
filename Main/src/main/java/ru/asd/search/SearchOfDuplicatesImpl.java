@@ -1,45 +1,23 @@
 package ru.asd.search;
 
-import ru.asd.code.ConvertToMd5Impl;
-import ru.asd.file.ListOfFiles;
-import ru.asd.file.ReadFile;
-import ru.asd.file.ReadFileImpl;
+import ru.asd.data.PathAndMd5;
 
 import java.nio.file.Path;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class SearchOfDuplicatesImpl implements SearchOfDuplicates {
 
-    //Перекладываем все values из mapMd5 в лист и далее его сортируем
-    @Override
-    public List<Path> getListOfDuplicatesUsingSorted(Map<Path, String> mapMd5) {
-        List<String> listMd5 = new ArrayList<>(mapMd5.values());
-        Set<String> listDuplicate = new HashSet<>();
-
-        listMd5.sort(String::compareTo);
-        //Ищем одинаковые значения, расположенные друг за другом и складываем их в listDuplicate
-        String buffer = null;
-        for (String element : listMd5) {
-            if (element.equals(buffer)) {
-                listDuplicate.add(element);
+     @Override
+    public List<Path> getListOfDuplicatesUsingSorted(List<PathAndMd5> listMd5) {
+        List<Path> listPathDuplicate = new ArrayList<>();
+        String bufferMd5 = null;
+        for (int i = 0; i < listMd5.size(); i++) {
+            if (listMd5.get(i).getMd5().equals(bufferMd5)) {
+                listPathDuplicate.add(listMd5.get(i).getPath());
             }
-            buffer = element;
+            bufferMd5 = listMd5.get(i).getMd5();
         }
-        List<Path> ListPathDuplicate = new ArrayList<>(listDuplicate.size());
-        //Используя listDuplicate с хэшкодами Md5, собираем лист с ссылками на дубли
-        for (String duplicate : listDuplicate) {
-            int count = 0;
-            for (Map.Entry<Path, String> map : mapMd5.entrySet()) {
-                if (map.getValue().equals(duplicate)) {
-                    count++;
-                    if (count > 1) {
-                        ListPathDuplicate.add(map.getKey());
-                    }
-                }
-            }
-        }
-        return ListPathDuplicate;
+        return listPathDuplicate;
     }
 
     @Override

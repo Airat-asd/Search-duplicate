@@ -64,10 +64,10 @@ class SearchOfDuplicatesImplTest {
         assertEquals(expectedGetListOfDuplicatesUsingStream, actualDuplicate);
     }
 
-    @Test
-    void getListOfDuplicatesUsingSorted() {
-        List<Path> actualDuplicate = searchOfDuplicates.getListOfDuplicatesUsingSorted(mapMd5);
-        assertEquals(expectedGetListOfDuplicatesUsingSorted, actualDuplicate);
-    }
+//    @Test
+//    void getListOfDuplicatesUsingSorted() {
+//        List<Path> actualDuplicate = searchOfDuplicates.getListOfDuplicatesUsingSorted(mapMd5);
+//        assertEquals(expectedGetListOfDuplicatesUsingSorted, actualDuplicate);
+//    }
 
 }

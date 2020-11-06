@@ -15,12 +15,7 @@ public class DataStorageImpl implements DataStorage {
     public Map<Path, String> getMapFromHashMd5(ListOfFiles listOfFiles) {
         Map<Path, String> mapMd5 = new HashMap<>();
         List<PathAndMd5> listFromHashMd5 = getListFromHashMd5(listOfFiles);
-        listFromHashMd5.stream()
-                .reduce(0,
-                        (x, y) -> {
-                            mapMd5.put(x.getPath(), x.getMd5());
-                        },
-                        0);
+        listFromHashMd5.forEach(x -> mapMd5.put(x.getPath(), x.getMd5()));
         return mapMd5;
     }
 
@@ -29,20 +24,24 @@ public class DataStorageImpl implements DataStorage {
         ReadFile readFile = new ReadFileImpl();
         List<PathAndMd5> pathAndMd5 = new ArrayList<>();
         List<SizeAndPath> sizeAndPath = getListFromSizeAndPath(listOfFiles);
-        Long bufferSize = -1L;
-        Path bufferPath = Paths.get("");
-        String code, codeBuffer;
+        Long bufferSize,secondBufferSize;
+        bufferSize = null;
+        String code;
+        int j;
         for (int i = 0; i < sizeAndPath.size(); i++) {
             if (sizeAndPath.get(i).getSize().equals(bufferSize)) {
-                code = new ConvertToMd5Impl().md5ConvertToHex(readFile.getReadFile(sizeAndPath.get(i).getPath()));
-                pathAndMd5.add(new PathAndMd5(sizeAndPath.get(i).getPath(), code));
-//                mapMd5.put(sizeAndPath.get(i).getPath(), code);
-                codeBuffer = new ConvertToMd5Impl().md5ConvertToHex(readFile.getReadFile(bufferPath));
-                pathAndMd5.add(new PathAndMd5(bufferPath, codeBuffer));
-//                mapMd5.put(bufferPath, codeBuffer);
+                j = i + 1;
+                secondBufferSize = sizeAndPath.get(i).getSize();
+                while (sizeAndPath.get(j).getSize().equals(secondBufferSize)) {
+                    j++;
+                }
+                for (int k = (i - 1); k < (j); k++) {
+                    code = new ConvertToMd5Impl().md5ConvertToHex(readFile.getReadFile(sizeAndPath.get(k).getPath()));
+                    pathAndMd5.add(new PathAndMd5(sizeAndPath.get(k).getPath(), code));
+                }
+                i = j - 1;
             }
-//            bufferSize = sizeAndPath.get(i).getSize();
-//            bufferPath = sizeAndPath.get(i).getPath();
+            bufferSize = sizeAndPath.get(i).getSize();
         }
         return pathAndMd5;
     }
